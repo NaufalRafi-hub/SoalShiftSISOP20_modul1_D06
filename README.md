@@ -41,3 +41,6 @@ echo $jwbn1a
 
 Penjalasan:
 + `awk -F'\t'` Field separatornya menjadi tab.
++ `'{a[$13] += $NF} END {for (i in a) if(i != "Region") print i,a[i]}' Sample-Superstore.tsv | sort -gk2 | head -1 | awk '{print $1}' )` Terdapat array *a* yg indeksnya merupakan data pada kolom ke-13 yaitu kolom *Region*. Selanjutnya menjumlahkan data pada kolom `NF` yg berarti kolom terakhir yaitu kolom *Profit* dan disimpan dalam array *a*. Lalu melakukan *looping* jika dalam kolom ke-13 tidak terdapat data *Region*, karena dimulai dari baris pertama, dengan mengoutputkan hasil penjumlahan untuk setiap region yg ada. Hasil dari output tersebut kemudian di urutkan dengan *command* sort dimana `-g` berarti mengurutkan nilai numerik secara umum dan `-k2` berarti mengurutkan variabel ke-2 dalam hal ini berarti variabel `a[i]`. Setelah di urutkan dilakukan command `head -1` agar hanya menampilkan baris pertama. Lalu dilakukan `awk '{print $1}'` agar hanya menampilkan variabel pertama dalam hal ini variabel *i*.
++ `jwbn1a=$` Output disimpan dalam variabel *jwbn1a*.
++ `echo "Jawaban 1 a:" echo $jwbn1a.
