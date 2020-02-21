@@ -41,6 +41,35 @@ echo $jwbn1a
 
 Penjalasan:
 + `awk -F'\t'` Field separatornya menjadi tab.
-+ `'{a[$13] += $NF} END {for (i in a) if(i != "Region") print i,a[i]}' Sample-Superstore.tsv | sort -gk2 | head -1 | awk '{print $1}' )` Terdapat array *a* yg indeksnya merupakan data pada kolom ke-13 yaitu kolom *Region*. Selanjutnya menjumlahkan data pada kolom `NF` yg berarti kolom terakhir yaitu kolom *Profit* dan disimpan dalam array *a*. Lalu melakukan *looping* jika dalam kolom ke-13 tidak terdapat data *Region*, karena dimulai dari baris pertama, dengan mengoutputkan hasil penjumlahan untuk setiap region yg ada. Hasil dari output tersebut kemudian di urutkan dengan *command* sort dimana `-g` berarti mengurutkan nilai numerik secara umum dan `-k2` berarti mengurutkan variabel ke-2 dalam hal ini berarti variabel `a[i]`. Setelah di urutkan dilakukan command `head -1` agar hanya menampilkan baris pertama. Lalu dilakukan `awk '{print $1}'` agar hanya menampilkan variabel pertama dalam hal ini variabel *i*.
++ `'{a[$13] += $NF} END {for (i in a) if(i != "Region") print i,a[i]}' Sample-Superstore.tsv | sort -gk2 | head -1 | awk '{print $1}' )` Terdapat array *a* yg indeksnya merupakan data pada kolom ke-13 yaitu kolom *Region*. Selanjutnya menjumlahkan data pada kolom `NF` yg berarti kolom terakhir yaitu kolom *Profit* dan disimpan dalam array *a*. Lalu melakukan *looping* jika dalam kolom ke-13 tidak terdapat data *Region*, karena dimulai dari baris pertama, dengan mengoutputkan hasil penjumlahan untuk setiap region yg ada. Hasil dari output tersebut kemudian di urutkan dengan *command* sort dimana `-g` berarti mengurutkan nilai numerik secara umum dan `-k2` berarti mengurutkan variabel ke-2 dalam hal ini berarti variabel `a[i]`. Setelah di urutkan dilakukan command `head -1` agar hanya menampilkan baris pertama. Lalu dilakukan `awk '{print $1}'` agar hanya menampilkan variabel pertama dari hasil `awk` pertama dalam hal ini variabel *i*.
 + `jwbn1a=$` Output disimpan dalam variabel *jwbn1a*.
-+ `echo "Jawaban 1 a:" echo $jwbn1a.
++ `echo "Jawaban 1 a:" echo $jwbn1a` Menampilkan variabel *jwbn1a*
+
+Untuk soal 1 bagian b jawabannya adalah bagian kode berikut:
+```sh
+jwbn1b=$(awk -F'\t' -v temp="$jwbn1a" '$13 ~ temp {a[$11] += $NF} END {for (i in a) if(i != "Region") print a[i],i}' Sample-Superstore.tsv | sort -gk1 | head -2 | awk '{print $2}' )
+
+echo "Jawaban 1 b:"
+echo $jwbn1b
+```
+
+Penjelasan:
++ Untuk soal b hampir mirip dengan soal a hanya berbeda pada bagian pola yang mengikuti hasil dari soal a.
++ `-v temp="$jwbn1a"` Menyimpan hasil soal a pada variabel *temp*
++ `$13 ~ temp` Mencari data pada kolom ke-13 yang memiliki kesamaan pada variabel *temp* yang berarti hasil dari soal a.
++ `sort -gk1` Mengurutkan hasil pada variabel pertama dalam hal ini variabel *a[i]*.
++ `head -2` Menampilkan data 2 baris teratas.
++ `awk '{print $2}` Menampilkan variabel kedua dari hasil `awk` pertama dalam hal ini variabel *i*
++ `jwbn1b=$` Output disimpan dalam variabel *jwbn1b*.
++ `echo "Jawaban 1 b:" echo $jwbn1b` Menampilkan variabel *jwbn1b*
+
+Untuk soal 1 bagian c jawabannya adalah bagian kode berikut:
+```sh
+echo "Jawaban 1 c:"
+awk -F'\t' -v temp1="$jwbn1a" '$11 ~ /Texas/ || $11 ~ /Illinois/ && $13 ~ temp1 {a[$17] += $NF} END {for (i in a) if(i != "Region") print a[i],i}' Sample-Superstore.tsv | sort -gk1 | head
+```
+
+Penjelasan:
++ Untuk soal c hampir mirip dengan soal b hanya berbeda pada bagian pola yang mengikuti hasil dari soal b.
++ `-v temp1="$jwbn1a" '$11 ~ /Texas/ || $11 ~ /Illinois/ && $13 ~ temp1` Mencari data pada kolom ke-11 yang memiliki kata *Texas* atau *Illinois*, dan mencari data pada kolom ke-13 yang memiliki kesamaan pada variabel *temp1* yang berarti hasil dari soal a.
++ `head` Menampilkan data 10 baris teratas.
