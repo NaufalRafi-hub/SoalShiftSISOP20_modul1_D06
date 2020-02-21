@@ -2,7 +2,8 @@
 
 Soal Shift Modul 1
 1. [Soal 1](#1-soal-1)
-1. [Soal 2](#2-soal-2)
+2. [Soal 2](#2-soal-2)
+3. [Soal 3](#3-soal-3)
 
 
 ### 1. Soal 1
@@ -158,4 +159,6 @@ mv $input $output.txt
 ```
 #untuk mengubah file yang awalnya diinputkan menjadi outputnya
 
+### 3. Soal 3
 
+Untuk Soal 3 dari kesulitan karena tenaga dan pikiran dari kami terbatas dan juga waktu yg tidak begitu mendukung
