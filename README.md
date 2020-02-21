@@ -40,5 +40,4 @@ echo $jwbn1a
 ```
 
 Penjalasan:
-+ `awk -F'\t'` Field separatornya menjadi tab
-+ `'{a[$13] += $NF} END {for (i in a) if(i != "Region") print i,a[i]}' Sample-Superstore.tsv | sort -gk2 | head -1 | awk '{print $1}' )` Terdapat array *a* yg indeksnya merupakan data pada kolom ke-13 yaitu kolom *region*. Selanjutnya menjumlahkan data pada kolom `NF` yg berarti kolom terakhir yaitu kolom *Profit* dan disimpan dalam array *a*. Lalu melakukan *looping* 
++ `awk -F'\t'` Field separatornya menjadi tab.
