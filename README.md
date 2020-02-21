@@ -2,6 +2,7 @@
 
 Soal Shift Modul 1
 1. [Soal 1](#1-soal-1)
+1. [Soal 2](#2-soal-2)
 
 
 ### 1. Soal 1
@@ -73,3 +74,88 @@ Penjelasan:
 + Untuk soal c hampir mirip dengan soal b hanya berbeda pada bagian pola yang mengikuti hasil dari soal b.
 + `-v temp1="$jwbn1a" '$11 ~ /Texas/ || $11 ~ /Illinois/ && $13 ~ temp1` Mencari data pada kolom ke-11 yang memiliki kata *Texas* atau *Illinois*, dan mencari data pada kolom ke-13 yang memiliki kesamaan pada variabel *temp1* yang berarti hasil dari soal a.
 + `head` Menampilkan data 10 baris teratas.
+
+
+### 2. Soal 2
+pada folder soal 2 terdapat file tugas2.sh, tugas2enc.sh, dan tugas2decr.sh
++ tugas2.sh adalah tugas yang diminta untuk mengoutputkan random karakter dan output tersebut dimasukkan kedalam file berupa .txt
++ tugas2enc.sh adalah tugas yang diminta untuk menenkripsi nama file yang disimpan berdasarkan dari tugas2.sh
++ tugas2decr.sh adalah tugas yang meminta untuk megembalikan hasil enkripsi
+
+PENJELASAN tugas2.sh
+```sh
+#!/bin/bash 
+
+
+if [[ $1 =~ ^[a-zA-Z]+$ ]]
+```
+yang dimaksud dalam kondisi tersebut adalah jika user menginputkan nomor/symbol atau kecuali alphabet di $1(argumen pertama) maka tidak masuk dalam kondisi if
+```sh
+then
+	</dev/urandom tr -dc 'A-Za-z0-9' | head -c 28 > /home/rafi/$1.txt
+ ```
+ yang dimaksud adalah urandom ini untuk merandom kata dan dalam tr adalah kondisi dimana kata yang dirandom itu antara A sampai Z , a sampai z , dan 0-9, dan disimpan di directory home
+```sh 
+else 
+	echo "tidak boleh angka"
+fi
+```
+masuk kedalam kondisi else jika user menginputkan angka
+
+PENJELASAN tugas2enc.sh
+
+```sh
+if [[ $1 =~ ^[a-zA-Z]+$ ]]
+```
+sama seperti yang dijelaskan diatas
+```sh
+then
+
+input=$1
+
+jam=`date "+%H"
+```
+yang dilakukan dalam kondisi ini adalah menyimpan argumen pertama kedalam variable input, dan menyimpan waktu yang sedang berlangsung (hanya jam) kedalam variable jam
+```sh
+upcase=("A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z")
+lowcase=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z")
+
+batas1=${upcase[jam]}
+batas2=${upcase[jam-1]}
+batas3=${lowcase[jam]}
+batas4=${lowcase[jam-1]}
+
+output=$(echo "$1" | tr '[A-Za-z]' ["$batas1"-ZA-"$batas2""$batas3"-za-"$batas4"])
+
+</dev/urandom tr -dc 'A-Za-z0-9' | head -c 28 > /home/rafi/$output.txt
+```
+membuat array yang bernama upcase, array tersebut diisi A-z (kapital) , membuat variabel bernama batasan1 sampai batasan4 untuk digunakan sebagai batasan di dalam variabel output (didalam tr), variabel batasan1-batasan4 ini digunakan untuk memenuhi kondisi tr dimana cara kerja tr adalah tr [OPTION] SET1 [SET2], dan batas1 ini untuk memulai pergantian huruf berdasarkan jam dan dibataskan dengan batas2 begitu juga batas3 dengan batas4
+
+
+PENJELASAN tugas2decr.sh 
+
+```sh
+#!/bin/bash 
+input=$1
+
+jam=`date -r $input "+%H"`
+
+file="${input%.txt}"
+#echo $jam
+```
+$1 untuk mengetahui inputan yang ingin di decrypt, variabel jam untuk mengetahui kpaan file terakhir di modifikasi dan diambil variabel jamnya, variabel file agar file yang diinputkan berbentuk output.txt
+
+```sh
+#biar muter
+batas1=${upcase[26-jam]}
+batas2=${upcase[26-jam-1]}
+batas3=${lowcase[26-jam]}
+batas4=${lowcase[26-jam-1]}
+```
+26 menjadi pengurang karena dari a sampai z mempunyai huruf sebanyak 26, agar dari yang sudah di enkripsi menjadi normal kembali
+```sh
+mv $input $output.txt
+```
+#untuk mengubah file yang awalnya diinputkan menjadi outputnya
+
+
