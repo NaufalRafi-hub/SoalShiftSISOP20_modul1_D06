@@ -1,0 +1,15 @@
+#!/bin/bash
+
+jwbn1a=$(awk -F'\t' '{a[$13] += $NF} END {for (i in a) if(i != "Region") print i,a[i]}' Sample-Superstore.tsv | sort -gk2 | head -1 | awk '{print $1}' )
+
+echo "Jawaban 1 a:"
+echo $jwbn1a
+
+jwbn1b=$(awk -F'\t' -v temp="$jwbn1a" '$13 ~ temp {a[$11] += $NF} END {for (i in a) if(i != "Region") print a[i],i}' Sample-Superstore.tsv | sort -gk1 | head -2 | awk '{print $2}' )
+
+echo "Jawaban 1 b:"
+echo $jwbn1b
+
+
+echo "Jawaban 1 c:"
+awk -F'\t' -v temp1="$jwbn1a" '$11 ~ /Texas/ || $11 ~ /Illinois/ && $13 ~ temp1 {a[$17] += $NF} END {for (i in a) if(i != "Region") print a[i],i}' Sample-Superstore.tsv | sort -gk1 | head
