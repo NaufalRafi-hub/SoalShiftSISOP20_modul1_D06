@@ -164,6 +164,8 @@ mv $input $output.txt
 ```
 #untuk mengubah file yang awalnya diinputkan menjadi outputnya
 
+![](Soal2/soal2.png)
+
 ### 3. Soal 3
 Pada folder Soal3 terdapat file soal3.sh
 Untuk soal 3 bagian a jawabannya adalah bagian kode berikut: 
