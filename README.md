@@ -133,7 +133,7 @@ batas4=${lowcase[jam-1]}
 
 output=$(echo "$1" | tr '[A-Za-z]' ["$batas1"-ZA-"$batas2""$batas3"-za-"$batas4"])
 
-</dev/urandom tr -dc 'A-Za-z0-9' | head -c 28 > /home/rafi/$output.txt
+mv $input.txt $output.txt
 ```
 membuat array yang bernama upcase, array tersebut diisi A-z (kapital) , membuat variabel bernama batasan1 sampai batasan4 untuk digunakan sebagai batasan di dalam variabel output (didalam tr), variabel batasan1-batasan4 ini digunakan untuk memenuhi kondisi tr dimana cara kerja tr adalah tr [OPTION] SET1 [SET2], dan batas1 ini untuk memulai pergantian huruf berdasarkan jam dan dibataskan dengan batas2 begitu juga batas3 dengan batas4
 
