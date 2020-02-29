@@ -6,8 +6,8 @@
 #  printf "\\$(printf '%03o' "$1")"
 #}
 
-if [[ $1 =~ ^[a-zA-Z]+$ ]]
-then
+#if [[ $1 =~ ^[a-zA-Z]+$ ]]
+#then
 
 input=$1
 
@@ -25,11 +25,12 @@ batas4=${lowcase[jam-1]}
 
 output=$(echo "$1" | tr '[A-Za-z]' ["$batas1"-ZA-"$batas2""$batas3"-za-"$batas4"])
 
-</dev/urandom tr -dc 'A-Za-z0-9' | head -c 28 > /home/rafi/log/$output.txt
+#</dev/urandom tr -dc 'A-Za-z0-9' | head -c 28 > /home/rafi/log/$output.txt
+mv $input.txt $output.txt
 
-else 
-	echo "tidak boleh angka"
-fi
+#else 
+#	echo "tidak boleh angka"
+#fi
 
 
 
