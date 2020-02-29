@@ -41,7 +41,7 @@ echo "Jawaban 1 a:"
 echo $jwbn1a
 ```
 
-Penjalasan:
+**Penjelasan:**
 + `awk -F'\t'` Field separatornya menjadi tab.
 + `'{a[$13] += $NF} END {for (i in a) if(i != "Region") print i,a[i]}' Sample-Superstore.tsv | sort -gk2 | head -1 | awk '{print $1}' )` Terdapat array *a* yg indeksnya merupakan data pada kolom ke-13 yaitu kolom *Region*. Selanjutnya menjumlahkan data pada kolom `NF` yg berarti kolom terakhir yaitu kolom *Profit* dan disimpan dalam array *a*. Lalu melakukan *looping* jika dalam kolom ke-13 tidak terdapat data *Region*, karena dimulai dari baris pertama, dengan mengoutputkan hasil penjumlahan untuk setiap region yg ada. Hasil dari output tersebut kemudian di urutkan dengan *command* sort dimana `-g` berarti mengurutkan nilai numerik secara umum dan `-k2` berarti mengurutkan variabel ke-2 dalam hal ini berarti variabel `a[i]`. Setelah di urutkan dilakukan command `head -1` agar hanya menampilkan baris pertama. Lalu dilakukan `awk '{print $1}'` agar hanya menampilkan variabel pertama dari hasil `awk` pertama dalam hal ini variabel *i*.
 + `jwbn1a=$` Output disimpan dalam variabel *jwbn1a*.
@@ -55,7 +55,7 @@ echo "Jawaban 1 b:"
 echo $jwbn1b
 ```
 
-Penjelasan:
+**Penjelasan:**
 + Untuk soal b hampir mirip dengan soal a hanya berbeda pada bagian pola yang mengikuti hasil dari soal a.
 + `-v temp="$jwbn1a"` Menyimpan hasil soal a pada variabel *temp*
 + `$13 ~ temp` Mencari data pada kolom ke-13 yang memiliki kesamaan pada variabel *temp* yang berarti hasil dari soal a.
@@ -71,19 +71,24 @@ echo "Jawaban 1 c:"
 awk -F'\t' -v temp1="$jwbn1a" '$11 ~ /Texas/ || $11 ~ /Illinois/ && $13 ~ temp1 {a[$17] += $NF} END {for (i in a) if(i != "Region") print a[i],i}' Sample-Superstore.tsv | sort -gk1 | head
 ```
 
-Penjelasan:
+**Penjelasan:**
 + Untuk soal c hampir mirip dengan soal b hanya berbeda pada bagian pola yang mengikuti hasil dari soal b.
 + `-v temp1="$jwbn1a" '$11 ~ /Texas/ || $11 ~ /Illinois/ && $13 ~ temp1` Mencari data pada kolom ke-11 yang memiliki kata *Texas* atau *Illinois*, dan mencari data pada kolom ke-13 yang memiliki kesamaan pada variabel *temp1* yang berarti hasil dari soal a.
 + `head` Menampilkan data 10 baris teratas.
 
 
+![](Soal1/soal1.png)
+
+**Kendala:**
+Pada kode soal 1 c supaya berdasarkan soal 1 b kita harus mengetahui dulu hasil dari soal 1 b, sehingga kita menggunakan kata *Texas* dan *Illinois* yang merupakan hasil dari soal 1 b kita, untuk dijadikan kata yang dicari dalam file input. Maka, jika hasil dari soal 1 b berubah, hasil dari soal 1 c tidak akan berubah kecuali kita ubah kata yang dijadikan polanya.
+
 ### 2. Soal 2
-pada folder soal 2 terdapat file tugas2.sh, tugas2enc.sh, dan tugas2decr.sh
+Pada folder soal 2 terdapat file tugas2.sh, tugas2enc.sh, dan tugas2decr.sh
 + tugas2.sh adalah tugas yang diminta untuk mengoutputkan random karakter dan output tersebut dimasukkan kedalam file berupa .txt
 + tugas2enc.sh adalah tugas yang diminta untuk menenkripsi nama file yang disimpan berdasarkan dari tugas2.sh
 + tugas2decr.sh adalah tugas yang meminta untuk megembalikan hasil enkripsi
 
-PENJELASAN tugas2.sh
+**PENJELASAN tugas2.sh**
 ```sh
 #!/bin/bash 
 
@@ -103,7 +108,7 @@ fi
 ```
 masuk kedalam kondisi else jika user menginputkan angka
 
-PENJELASAN tugas2enc.sh
+**PENJELASAN tugas2enc.sh**
 
 ```sh
 if [[ $1 =~ ^[a-zA-Z]+$ ]]
@@ -133,7 +138,7 @@ output=$(echo "$1" | tr '[A-Za-z]' ["$batas1"-ZA-"$batas2""$batas3"-za-"$batas4"
 membuat array yang bernama upcase, array tersebut diisi A-z (kapital) , membuat variabel bernama batasan1 sampai batasan4 untuk digunakan sebagai batasan di dalam variabel output (didalam tr), variabel batasan1-batasan4 ini digunakan untuk memenuhi kondisi tr dimana cara kerja tr adalah tr [OPTION] SET1 [SET2], dan batas1 ini untuk memulai pergantian huruf berdasarkan jam dan dibataskan dengan batas2 begitu juga batas3 dengan batas4
 
 
-PENJELASAN tugas2decr.sh 
+**PENJELASAN tugas2decr.sh**
 
 ```sh
 #!/bin/bash 
@@ -160,5 +165,30 @@ mv $input $output.txt
 #untuk mengubah file yang awalnya diinputkan menjadi outputnya
 
 ### 3. Soal 3
+Pada folder Soal3 terdapat file soal3.sh
+Untuk soal 3 bagian a jawabannya adalah bagian kode berikut: 
+```sh
+#!bin/bash/
 
-Untuk Soal 3 dari kesulitan karena tenaga dan pikiran dari kami terbatas dan juga waktu yg tidak begitu mendukung
+for((i=1; i<=28; i++))
+do 
+wget https://loremflickr.com/320/240/cat -O /home/syamil/Soal3/pdkt_kusuma_$i.jpg -a wget.log
+done
+```
+**Penjelasan:**
++ `for((i=1; i<=28; i++))` Untuk melakukan looping sebanyak 28
++ ` -O /home/syamil/Soal3/pdkt_kusuma_$i.jpg` -O untuk menyimpan file dalam folder dan dengan nama yang ditentukan 
++ ` -a wget.log` -a untuk menyimpan log tanpa overwrite
+
+![](Soal3/soal3.png)
+![](Soal3/wget.png)
+
+
+
+Untuk soal 3 bagian b jawabannya adalah gambar berikut:
+![](Soal3/crontab.png)
+
+`5 6-23/8 * * 0-5` 5 berarti setiap menit ke 5, 6-23/8 berarti setiap 8 jam mulai dari jam 6 hingga jam 23, 0-5 berarti dari hari minggu sampai jum'at
+
+**Kendala:**
+Untuk Soal 3 c kami kesulitan karena tenaga dan pikiran dari kami terbatas dan juga waktu yg tidak begitu mendukung
